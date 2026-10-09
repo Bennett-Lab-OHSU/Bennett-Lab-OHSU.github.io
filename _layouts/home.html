@@ -4,15 +4,15 @@ layout: default
 <section class="hero">
   <h1 class="hero-title">{{ site.name | escape }}</h1>
   <p class="hero-tagline">{{ site.tagline | escape }}</p>
-  <p class="hero-actions">
-    <a class="button" href="{{ '/research/' | relative_url }}">Our research</a>
-    <a href="{{ '/join/' | relative_url }}">Join the lab</a>
-  </p>
 </section>
 
-<section class="slab slab-left">
+<section class="slab slab-left slab-about">
   <h2>About the lab</h2>
 {{ content }}
+  <p class="home-actions">
+    <a class="button" href="{{ '/research/' | relative_url }}">Our research</a>
+    <a class="button button-alt" href="{{ '/join/' | relative_url }}">Join the lab</a>
+  </p>
 </section>
 
 <div class="breath" aria-hidden="true"></div>
