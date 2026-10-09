@@ -7,9 +7,12 @@ sideways as you scroll. Content lives in plain files, in the style of the
 
 ## Put it online
 
-1. Create a GitHub repo named `<your-user>.github.io` and push these files.
+1. Create a GitHub repo named `<owner>.github.io`, where `<owner>` is the exact name of the account
+   or organization that owns it, and push these files.
 2. In the repo, go to Settings, then Pages, and publish from the main branch.
-3. For a project site (`you.github.io/some-repo`), set `baseurl: "/some-repo"` in `_config.yml`.
+3. Settings, Pages shows your real address. If it ends with the repository name (for example
+   `https://owner.github.io/some-repo/`), set `baseurl: "/some-repo"` in `_config.yml`. If it is just
+   `https://owner.github.io`, leave `baseurl` empty.
 
 ## Preview on your computer
 
@@ -22,7 +25,7 @@ bundle exec jekyll serve      # http://localhost:4000
 
 | To do this | Edit this |
 |---|---|
-| Lab name, red seal letters, tagline, contact details | `_config.yml` |
+| Lab name, two letters for the browser-tab icon, the tagline under the name, contact details | `_config.yml` |
 | A different landscape | `landscape.seed` in `_config.yml` (any word). Try one live with `?seed=word` on the URL |
 | Trees and mountains only, or with pagodas, houses, boats and people | `landscape.structures` in `_config.yml` (`false` is trees only) |
 | How fast it slides, idle drift, how far apart pages start | `landscape:` block in `_config.yml` |
@@ -30,15 +33,25 @@ bundle exec jekyll serve      # http://localhost:4000
 | Menu items | `_data/navigation.yml` |
 | Group names on the People page | `_data/people.yml` |
 | Email addresses | Write them as `name [at] domain` in `_config.yml` and member files. Never type a real `@` |
+| The two buttons on the home page | `_layouts/home.html` |
 | Add a person | copy `_members/rivera.md` to a new file and edit it |
 | Move someone to alumni | set `status: alumni` and add `enddate` (and optionally `subsequent`) |
 | Add a paper | copy a file in `_publications/` |
+| Add a preprint | same, with the extra line `type: preprint`. When it is published, delete that line and update `journal` and `pub_date` |
 | Add news | new file in `_posts/` named `YYYY-MM-DD-short-title.md` |
 | Colors and fonts | the tokens at the top of `assets/css/site.css` |
 | Research, Join, Contact text | `research/index.md`, `join/index.md`, `contact/index.md` |
 
-Member photos: put a square image in `static/img/` and set `image: /static/img/name.jpg`.
-Without one, the person gets a red seal with their initials.
+A person's `category` is matched to `_data/people.yml` ignoring capital letters and stray spaces.
+Anyone whose category matches no group appears under "Other" on the People page, so nobody goes missing.
+
+Headshots: upload a photo to `static/headshots/` named after the person's file in `_members`
+(for `_members/jane-smith.md`, upload `jane-smith.jpg`; `.jpeg`, `.png` and `.webp` also work).
+It appears automatically to the right of that person's stamp and description on the People page,
+and below their name on phones. Crop to 4 wide by 5 tall, about 600 x 750 pixels, under 300 KB.
+To use a photo with a different name, add `image: /static/headshots/that-name.jpg` to the person's file.
+Each person also has a red stamp with their initials; it appears on the People page only, not in the page header.
+The stamp's edge, thickness, colors and (switched-off) motion are described in section 4.5 of the manual.
 
 ## How the landscape works
 
