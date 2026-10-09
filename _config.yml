@@ -3,13 +3,13 @@
 # ---------------------------------------------------------------------------
 name: "Bennett Lab"
 initials: "BL"                       # two letters, shown on the red seal
-tagline: "We study how energy flows, and matter cycles in cells of the body."
-description: "The Bennett Lab studies how energy flows, and matter cycles in cells of the body, at Example University."
-institution: "Department of Molecular Studies, Example University"
+tagline: "We study how energy flows and matter cycles in cells of the body."
+description: "The Bennett Lab studies how energy flows, and matter cycles in cells of the body, at OHSU."
+institution: "Department of Molecular and Medical Genetics, Oregon Health & Science University"
 # Write addresses as "name [at] domain". The site never prints a real "@" into its pages,
 # which keeps most address-harvesting robots from reading it.
-email: "lab [at] example.edu"
-address: "123 University Way, Room 456, Example City"
+email: "bennettne [at] ohsu.edu"
+address: "3181 SW Research Dr, Portland, OR 97239"
 
 # The repository name and owner decide your address:
 #   repo "acme-lab.github.io" owned by an account or organization named exactly "acme-lab"
