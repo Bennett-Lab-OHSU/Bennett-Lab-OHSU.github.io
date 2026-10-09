@@ -5,14 +5,14 @@ group: research
 ---
 Our work falls into three connected projects. Each one has its own people, its own questions, and its own set of open positions.
 
-## Assembly from the bottom up
+## Scaling energy production
 
-How do molecules find each other, and what makes some partnerships last? We combine high-resolution imaging with simple physical models to follow assemblies as they form.
+How do cells like neurons scale energy production based on dynamic firing needs? How is energy production impaired in neurological and neurodegenerative diseases, and what are the consequences? Our recent work highlights a surprising role for proteins commonly aggregated in dementia in the regulation of energy production.
 
-## Reading the noise
+## Privileged energy access
 
-Real measurements are messy. We build statistical tools that separate what an instrument did from what the sample did, and we release them as open software.
+How do cells undergoing great metabolic stress ensure that critical cellular functions stay active? 
 
-## Tools for the community
+## Balancing matter breakdown and synthesis
 
-Methods are only useful if other people can use them. Much of our effort goes into documentation, teaching materials, and workshops.
+How do cells react when matter cycling is disrupted? Our recent work demonstrate how anabolic/biosynthetic defects, specifically in N-glycan synthesis, may be an underappreciated facet of lysosomal storage diseases.
