@@ -43,7 +43,6 @@
   --wash: #4f5853;             /* secondary text */
   --hair: rgba(39, 43, 42, 0.2);
   --cinnabar: #a63a2c;         /* the seal; also links and focus */
-  --seal-text: #f6ece0;
 
   --display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP",
     "Songti SC", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -75,7 +74,7 @@ body {
 h1, h2, h3 { margin: 0; font-weight: 500; line-height: 1.2; }
 h1, h2 { font-family: var(--display); }
 h1 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); letter-spacing: -0.005em; }
-h2 { font-size: clamp(1.35rem, 2.6vw, 1.65rem); margin-top: 2.1rem; }
+h2 { font-size: clamp(1.35rem, 2.6vw, 1.65rem); margin: 2.1rem 0 0.5rem; }
 h3 { font-family: var(--text); font-weight: 600; font-size: 1.1rem; }
 p { margin: 0 0 1rem; }
 
@@ -161,24 +160,32 @@ main:focus { outline: none; }
 }
 .menu-toggle { display: none; }
 
-/* The seal: a small red name stamp */
+/* The seal: a thick, solid red name stamp. Artwork: _includes/seal-sprite.html.
+   It appears beside each person on the People page. */
+.seal-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .seal {
-  display: inline-grid;
-  place-items: center;
+  display: block;
   flex: none;
-  width: 2.6rem;
-  height: 2.6rem;
-  background: var(--cinnabar);
-  color: var(--seal-text);
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  border-radius: 3px;
-  box-shadow: inset 0 0 0 2px rgba(246, 236, 224, 0.5);
-  transform: rotate(-3deg);
+  width: 4.6rem;
+  height: 4.6rem;
+  overflow: visible;
+  transform: rotate(-2deg);
 }
-.seal-lg { width: 6rem; height: 6rem; font-size: 2rem; border-radius: 4px; box-shadow: inset 0 0 0 3px rgba(246, 236, 224, 0.5); }
+.seal-letter { font-family: var(--display); font-weight: 700; }
+
+/* SEAL MOTION: switched off for now. To bring it back, delete the comment marks
+   that open and close this block. The first rule presses each seal down when the
+   People page opens; the second makes a seal bounce slightly under the mouse.
+
+.member .seal { animation: stamp 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards; }
+.seal { transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.member:hover .seal { transform: rotate(-1deg) scale(1.08); }
+@keyframes stamp {
+  0%   { transform: rotate(-10deg) scale(1.45); opacity: 0; }
+  55%  { opacity: 1; }
+  100% { transform: rotate(-2deg) scale(1); opacity: 1; }
+}
+*/
 
 /* ==========================================================================
    Page structure
@@ -204,6 +211,15 @@ main:focus { outline: none; }
 .slab-right { margin-left: auto; margin-right: var(--gutter); }
 .slab-wide { width: min(var(--wide), calc(100% - 2 * var(--gutter))); }
 .slab > h1 { margin-bottom: 1.25rem; }
+/* A short stepped-fret rule under page titles, the same maze-corridor shape as the seal border */
+.slab > h1::after {
+  content: "";
+  display: block;
+  width: 5rem;
+  height: 0.62rem;
+  margin-top: 0.8rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10' viewBox='0 0 20 10'%3E%3Cpath d='M0 8.5 H5 V1.5 H10 V8.5 H15 V1.5 H20' fill='none' stroke='%23A63A2C' stroke-width='2'/%3E%3C/svg%3E") repeat-x left center / auto 100%;
+}
 .slab > h2:first-child { margin-top: 0; }
 .slab > *:last-child { margin-bottom: 0; }
 
@@ -211,38 +227,44 @@ main:focus { outline: none; }
 
 .more { margin-top: 1.4rem; font-weight: 600; }
 
-/* Hero (home) */
+/* Hero (home): the name and one line, then the About panel straight away */
 .hero {
   margin: 0 var(--gutter);
-  min-height: calc(72vh - var(--head));
-  min-height: calc(72svh - var(--head));
-  padding-top: clamp(1rem, 5vh, 3.5rem);
-  background: radial-gradient(ellipse 46rem 22rem at 18% 38%, rgba(228, 230, 219, 0.8), rgba(228, 230, 219, 0) 70%);
+  padding-top: clamp(0.25rem, 2.2vh, 1.5rem);
+  padding-bottom: 1.25rem;
 }
 .hero-title {
-  max-width: 13ch;
-  font-size: clamp(3rem, 8.5vw, 6.2rem);
-  line-height: 1;
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 6.4vw, 4.9rem);
+  line-height: 1.02;
   font-weight: 500;
   letter-spacing: -0.015em;
   text-shadow: 0 0 0.5em var(--paper), 0 0 1.2em var(--paper);
 }
 .hero-tagline {
-  max-width: 24rem;
-  margin: 1.4rem 0 1.6rem;
+  max-width: 34rem;
+  margin: 0.9rem 0 0;
   font-size: 1.3rem;
   line-height: 1.4;
   text-shadow: 0 0 0.6em var(--paper), 0 0 1.2em var(--paper);
 }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.6rem; font-weight: 600; }
+.slab-about { margin-bottom: 1.25rem; }
+.home-actions {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 0.9rem;
+  margin: 0 var(--gutter) 3rem;
+  font-weight: 600;
+}
 .button {
   display: inline-block;
-  padding: 0.65rem 1.2rem;
+  padding: 0.7rem 1.3rem;
   background: var(--ink);
   color: var(--silk-solid);
+  border: 1px solid var(--ink);
   text-decoration: none;
 }
-.button:hover { background: var(--cinnabar); text-decoration: none; }
+.button:hover { background: var(--cinnabar); border-color: var(--cinnabar); text-decoration: none; }
+.button-alt { background: var(--silk-solid); color: var(--ink); }
+.button-alt:hover { background: var(--cinnabar); color: var(--silk-solid); }
 
 /* ==========================================================================
    Content bits
@@ -275,29 +297,58 @@ dd { margin: 0 0 1rem; }
 .name-list .n, .alumni-list .n { font-weight: 600; }
 .name-list .r, .alumni-list .r, .alumni-list .now { color: var(--wash); }
 
-/* People */
+/* People: stamp and name on the left, photo on the right */
 .member-group:first-child h2 { margin-top: 0; }
-.member-list { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; gap: 1.8rem; }
-.member { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 1.25rem; }
-.portrait img {
-  display: block; width: 6rem; height: 6rem; object-fit: cover;
-  filter: grayscale(0.65) contrast(1.05);
-  mix-blend-mode: multiply;   /* photos sit in the paper like the landscape does */
+.member-list { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; gap: 2rem; }
+.member {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr) 8.75rem;
+  grid-template-areas:
+    "seal head photo"
+    "seal text photo";
+  column-gap: 1.35rem;
+  align-items: start;
+}
+.member-nophoto {
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  grid-template-areas:
+    "seal head"
+    "seal text";
+}
+.member-seal { grid-area: seal; padding-top: 0.15rem; }
+.member-head { grid-area: head; }
+.member-text { grid-area: text; }
+.member-photo { grid-area: photo; margin: 0; }
+.member-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;      /* headshots are cropped to a portrait rectangle */
+  object-fit: cover;
+  object-position: center 22%;
+  border: 1px solid var(--hair);
+  background: var(--paper);
+  filter: saturate(0.9);
 }
 .member h3 { margin-bottom: 0.1rem; }
 .role { margin-bottom: 0.5rem; color: var(--wash); }
-.member-body p:last-child { margin-bottom: 0; }
+.member-text p:last-child { margin-bottom: 0; }
 .links { display: flex; flex-wrap: wrap; gap: 0 1.1rem; margin: 0.6rem 0 0; font-size: 0.95rem; font-weight: 600; }
 .links:empty { display: none; }
 
 /* Publications */
+.jump { display: flex; gap: 1.4rem; margin: 0 0 0.5rem; font-weight: 600; }
+.pub-section { scroll-margin-top: 6rem; }
+.pub-section > h2 { margin: 2.4rem 0 0.9rem; padding-top: 1.2rem; border-top: 2px solid var(--ink); }
+.pub-section:first-of-type > h2 { margin-top: 0.6rem; padding-top: 0; border-top: 0; }
+.pub-note { margin: 0.2rem 0 0.6rem; color: var(--wash); font-size: 0.95rem; }
 .pub-year { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0 1.25rem; }
-.pub-year h2 { margin-top: 1.6rem; }
-.pub-year:first-child h2 { margin-top: 0; }
+.pub-year h3 { margin-top: 1.6rem; font-family: var(--display); font-weight: 500; font-size: 1.3rem; }
+.pub-year:first-of-type h3 { margin-top: 0.1rem; }
 .pub-list { list-style: none; margin: 0; padding: 0; }
 .pub { padding: 1.6rem 0 0; }
 .pub:first-child { padding-top: 0; }
-.pub-year:not(:first-child) .pub:first-child { padding-top: 1.6rem; }
+.pub-year:not(:first-of-type) .pub:first-child { padding-top: 1.6rem; }
+.pub-list-flat .pub:first-child { padding-top: 0.6rem; }
 .pub p { margin: 0 0 0.2rem; }
 .pub-title { font-weight: 600; font-size: 1.08rem; line-height: 1.4; }
 .pub-title a { text-decoration-color: transparent; }
@@ -329,7 +380,6 @@ dd { margin: 0 0 1rem; }
   :root { --gutter: 0.75rem; --head: 4.6rem; }
   .masthead { padding-bottom: 1.6rem; gap: 0.75rem; }
   .brand { font-size: 1.15rem; }
-  .seal { width: 2.3rem; height: 2.3rem; }
 
   .js .menu-toggle {
     display: inline-block; margin-left: auto;
@@ -348,13 +398,29 @@ dd { margin: 0 0 1rem; }
   .slab, .slab-wide, .colophon { width: auto; margin-left: var(--gutter); margin-right: var(--gutter); }
   .slab { margin-bottom: 1.5rem; }
   .breath { height: 38svh; }
-  .member { grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; }
-  .portrait img { width: 4.5rem; height: 4.5rem; }
-  .seal-lg { width: 4.5rem; height: 4.5rem; font-size: 1.5rem; }
+  /* People on a phone: stamp and name in a row, then the photo, then the description */
+  .member {
+    grid-template-columns: 3.6rem minmax(0, 1fr);
+    grid-template-areas:
+      "seal head"
+      "photo photo"
+      "text text";
+    column-gap: 1rem;
+    row-gap: 0.7rem;
+  }
+  .member-nophoto {
+    grid-template-areas:
+      "seal head"
+      "text text";
+  }
+  .seal { width: 3.6rem; height: 3.6rem; }
+  .member-photo { max-width: 13rem; }
+  .home-actions { margin-bottom: 2rem; }
+  .jump { gap: 1rem; }
   .pub-year { grid-template-columns: minmax(0, 1fr); }
-  .pub-year h2 { margin-bottom: 0.6rem; }
+  .pub-year h3 { margin-bottom: 0.6rem; }
   .pub:first-child { padding-top: 0; }
-  .pub-year:not(:first-child) .pub:first-child { padding-top: 0; }
+  .pub-year:not(:first-of-type) .pub:first-child { padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
