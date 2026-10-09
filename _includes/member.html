@@ -1,19 +1,37 @@
-{%- comment -%}One person. Usage: {% include member.html m=member %}{%- endcomment -%}
+{%- comment -%}
+  One person. Usage: {% include member.html m=member %}
+  Layout: stamp and name on the left, photo on the right (stacked on phones).
+  Photo, in order of preference:
+    1. image: in the person's file (a full path, e.g. /static/headshots/me.jpg)
+    2. a file in static/headshots/ named like the person's file, with .jpg, .jpeg, .png or .webp.
+       For _members/jane-smith.md, upload static/headshots/jane-smith.jpg
+  With neither, only the stamp is shown.
+{%- endcomment -%}
 {%- assign m = include.m %}
 {%- assign short = m.name | split: "," | first %}
 {%- assign parts = short | split: " " %}
 {%- if m.initials %}{% assign initials = m.initials %}{% else %}{% capture initials %}{{ parts.first | slice: 0 }}{{ parts.last | slice: 0 }}{% endcapture %}{% endif %}
-<li class="member">
-  <div class="portrait">
-    {%- if m.image %}
-    <img src="{{ m.image | relative_url | escape }}" alt="Portrait of {{ short | escape }}" width="96" height="96" loading="lazy">
-    {%- else %}
-    <span class="seal seal-lg" aria-hidden="true"><span>{{ initials | escape }}</span></span>
+{%- assign headshot = "" %}
+{%- if m.image %}
+  {%- assign headshot = m.image | relative_url %}
+{%- else %}
+  {%- assign shots = site.static_files | where_exp: "f", "f.path contains '/static/headshots/'" %}
+  {%- assign exts = "jpg,jpeg,png,webp" | split: "," %}
+  {%- for ext in exts %}
+    {%- if headshot == "" %}
+      {%- capture wanted %}{{ m.slug }}.{{ ext }}{% endcapture %}
+      {%- assign found = shots | where: "name", wanted | first %}
+      {%- if found %}{% assign headshot = found.path | relative_url %}{% endif %}
     {%- endif %}
-  </div>
-  <div class="member-body">
+  {%- endfor %}
+{%- endif %}
+<li class="member{% if headshot == "" %} member-nophoto{% endif %}">
+  <div class="member-seal">{% include seal.html initials=initials size="lg" %}</div>
+  <div class="member-head">
     <h3>{{ m.name | escape }}</h3>
     <p class="role">{{ m.position | escape }}</p>
+  </div>
+  <div class="member-text">
     {{ m.content | markdownify }}
     {%- capture link_items %}
       {%- if m.email %}{% include email.html address=m.email label="Email" %}{% endif %}
@@ -24,4 +42,7 @@
     {%- endcapture %}
     {%- if link_items contains "<a" or link_items contains "<span" %}<p class="links">{{ link_items }}</p>{% endif %}
   </div>
+  {%- if headshot != "" %}
+  <figure class="member-photo"><img src="{{ headshot | escape }}" alt="Portrait of {{ short | escape }}" width="140" height="175" loading="lazy" decoding="async"></figure>
+  {%- endif %}
 </li>

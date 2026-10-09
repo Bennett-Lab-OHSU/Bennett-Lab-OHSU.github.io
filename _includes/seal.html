@@ -1,2 +1,8 @@
-{%- comment -%}A red name seal with the lab's initials, like the stamp on a scroll painting.{%- endcomment -%}
-<span class="seal" aria-hidden="true"><span>{{ site.initials | escape }}</span></span>
+{%- comment -%}
+  A person's (or the lab's) red seal. Usage: {% include seal.html initials="JS" size="lg" %}
+  Two letters sit stacked in the cream panel, as characters do on a traditional seal.
+{%- endcomment -%}
+{%- assign seal_text = include.initials | strip -%}
+{%- assign seal_a = seal_text | slice: 0 | escape -%}
+{%- assign seal_b = seal_text | slice: 1 | escape -%}
+<svg class="seal{% if include.size %} seal-{{ include.size | escape }}{% endif %}" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#seal-frame" width="64" height="64"/><g filter="url(#seal-rough-light)">{% if seal_b != "" %}<text class="seal-letter" x="32" y="28.3" text-anchor="middle" font-size="21" fill="#A63A2C">{{ seal_a }}</text><text class="seal-letter" x="32" y="50.6" text-anchor="middle" font-size="21" fill="#A63A2C">{{ seal_b }}</text>{% else %}<text class="seal-letter" x="32" y="42" text-anchor="middle" font-size="30" fill="#A63A2C">{{ seal_a }}</text>{% endif %}</g></svg>

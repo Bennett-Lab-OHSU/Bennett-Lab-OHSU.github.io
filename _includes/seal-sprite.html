@@ -1,0 +1,29 @@
+{%- comment -%}
+  The artwork shared by every red seal on the site. Included once in the page layout;
+  each seal then reuses it and only adds its own two letters (see seal.html).
+  Style: a solid, thick red border around a cream panel, like the heavy frames on
+  imperial seals. The edges are deliberately uneven, as if pressed by hand.
+  To make the edge calmer, lower the two "scale" numbers in the first filter
+  (4.6 and 1.3). To make it wilder, raise them. Colors are #A63A2C (red) and
+  #F6ECE0 (cream); the letters' red is set in seal.html.
+{%- endcomment -%}
+<svg class="seal-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="seal-rough" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="2" seed="23" result="wobble"/>
+      <feDisplacementMap in="SourceGraphic" in2="wobble" scale="4.6" xChannelSelector="R" yChannelSelector="G" result="warped"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="1" seed="9" result="grain"/>
+      <feDisplacementMap in="warped" in2="grain" scale="1.3" xChannelSelector="G" yChannelSelector="R"/>
+    </filter>
+    <filter id="seal-rough-light" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="1" seed="5" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="0.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="seal-frame" viewBox="0 0 64 64">
+      <g filter="url(#seal-rough)">
+        <rect x="1" y="1" width="62" height="62" rx="3.2" fill="#A63A2C"/>
+        <rect x="9.6" y="9.6" width="44.8" height="44.8" fill="#F6ECE0"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
