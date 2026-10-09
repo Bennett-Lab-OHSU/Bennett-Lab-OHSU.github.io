@@ -211,14 +211,14 @@ main:focus { outline: none; }
 .slab-right { margin-left: auto; margin-right: var(--gutter); }
 .slab-wide { width: min(var(--wide), calc(100% - 2 * var(--gutter))); }
 .slab > h1 { margin-bottom: 1.25rem; }
-/* A short stepped-fret rule under page titles, the same maze-corridor shape as the seal border */
+/* A thick, short solid line under page titles */
 .slab > h1::after {
   content: "";
   display: block;
-  width: 5rem;
-  height: 0.62rem;
-  margin-top: 0.8rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10' viewBox='0 0 20 10'%3E%3Cpath d='M0 8.5 H5 V1.5 H10 V8.5 H15 V1.5 H20' fill='none' stroke='%23A63A2C' stroke-width='2'/%3E%3C/svg%3E") repeat-x left center / auto 100%;
+  width: 3.4rem;
+  height: 0.3rem;
+  margin-top: 0.85rem;
+  background: var(--cinnabar);
 }
 .slab > h2:first-child { margin-top: 0; }
 .slab > *:last-child { margin-bottom: 0; }
@@ -227,7 +227,7 @@ main:focus { outline: none; }
 
 .more { margin-top: 1.4rem; font-weight: 600; }
 
-/* Hero (home): the name and one line, then the About panel straight away */
+/* Hero (home): the name and one line, then the About panel (with the two buttons at its end) */
 .hero {
   margin: 0 var(--gutter);
   padding-top: clamp(0.25rem, 2.2vh, 1.5rem);
@@ -242,16 +242,16 @@ main:focus { outline: none; }
   text-shadow: 0 0 0.5em var(--paper), 0 0 1.2em var(--paper);
 }
 .hero-tagline {
-  max-width: 34rem;
   margin: 0.9rem 0 0;
   font-size: 1.3rem;
   line-height: 1.4;
+  text-wrap: balance;   /* if a phone is too narrow for one line, the two lines come out even */
   text-shadow: 0 0 0.6em var(--paper), 0 0 1.2em var(--paper);
 }
-.slab-about { margin-bottom: 1.25rem; }
+.slab-about { margin-bottom: 0; }
 .home-actions {
   display: flex; flex-wrap: wrap; gap: 0.75rem 0.9rem;
-  margin: 0 var(--gutter) 3rem;
+  margin: 1.5rem 0 0;
   font-weight: 600;
 }
 .button {
@@ -415,7 +415,6 @@ dd { margin: 0 0 1rem; }
   }
   .seal { width: 3.6rem; height: 3.6rem; }
   .member-photo { max-width: 13rem; }
-  .home-actions { margin-bottom: 2rem; }
   .jump { gap: 1rem; }
   .pub-year { grid-template-columns: minmax(0, 1fr); }
   .pub-year h3 { margin-bottom: 0.6rem; }
