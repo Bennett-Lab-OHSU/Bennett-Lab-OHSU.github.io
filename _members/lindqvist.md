@@ -1,9 +1,9 @@
 ---
-name: Sam Lindqvist
-category: Graduate students
+name: Kaylee Ha
+category: Team
 status: current
 startdate: 2024-09-02
 position: Ph.D. student
-email: "slindqvist [at] example.edu"
+email: "haka [at] ohsu.edu"
 ---
-Sam is mapping how small assemblies form in real time. They like long bike rides and short experiments.
+Bio goes here
