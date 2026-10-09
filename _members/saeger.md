@@ -1,5 +1,5 @@
 ---
-name: Hannah Saeger
+name: Hannah Saeger, M.S.
 status: alumni
 startdate: 2025-04
 enddate: 2026-10
