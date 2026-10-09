@@ -1,13 +1,17 @@
-{%- comment -%}One paper. Usage: {% include publication.html p=pub %}{%- endcomment -%}
+{%- comment -%}
+  One paper. Usage: {% include publication.html p=pub %}
+  The title links to the DOI, or to "link:" when there is no DOI. (The field is called "link", not "url":
+  Jekyll gives every collection file its own built-in url, which would hide a url: line.)
+{%- endcomment -%}
 {%- assign p = include.p %}
 <li class="pub">
-  <p class="pub-title">
+  {%- capture title_link %}
     {%- if p.doi %}<a href="https://doi.org/{{ p.doi | uri_escape | escape }}" rel="noopener noreferrer">{{ p.title | escape }}</a>
-    {%- elsif p.url %}{% include link.html url=p.url text=p.title %}
-    {%- else %}{{ p.title | escape }}{% endif -%}
-  </p>
+    {%- elsif p.link %}{% include link.html url=p.link text=p.title %}{% endif %}
+  {%- endcapture %}
+  <p class="pub-title">{% if title_link contains "<a" %}{{ title_link }}{% else %}{{ p.title | escape }}{% endif %}</p>
   <p class="pub-authors">{{ p.authors | escape | markdownify | remove: "<p>" | remove: "</p>" | strip }}</p>
-  <p class="pub-venue"><em>{{ p.journal | escape }}</em>, {{ p.pub_date | date: "%B %Y" }}</p>
+  <p class="pub-venue"><em>{{ p.journal | escape }}</em>{% if p.type == "preprint" %} preprint{% endif %}, {{ p.pub_date | date: "%B %Y" }}</p>
   {%- capture pub_links %}
     {%- if p.pdf %}{% include link.html url=p.pdf text="PDF" %}{% endif %}
     {%- for l in p.links %}{% include link.html url=l.url text=l.name %}{% endfor %}
