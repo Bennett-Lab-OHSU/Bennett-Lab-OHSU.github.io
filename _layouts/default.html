@@ -19,7 +19,8 @@
   <meta property="og:site_name" content="{{ site.name | escape }}">
   <meta property="og:title" content="{{ full_title | escape }}">
   <meta property="og:description" content="{{ desc | strip | escape }}">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23A63A2C'/%3E%3Ctext x='16' y='22' font-size='14' text-anchor='middle' fill='%23F3F2E8' font-family='serif'%3E{{ site.initials | escape | uri_escape }}%3C/text%3E%3C/svg%3E">
+  {%- assign fav_text = site.initials | strip %}{% assign fav_a = fav_text | slice: 0 | escape %}{% assign fav_b = fav_text | slice: 1 | escape %}
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='1' y='1' width='62' height='62' rx='4' fill='%23A63A2C'/%3E%3Crect x='10' y='10' width='44' height='44' fill='%23F6ECE0'/%3E%3Ctext x='32' y='30' font-size='21' font-weight='bold' text-anchor='middle' fill='%23A63A2C' font-family='serif'%3E{{ fav_a | uri_escape }}%3C/text%3E%3Ctext x='32' y='51' font-size='21' font-weight='bold' text-anchor='middle' fill='%23A63A2C' font-family='serif'%3E{{ fav_b | uri_escape }}%3C/text%3E%3C/svg%3E">
 
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
 </head>
@@ -27,6 +28,7 @@
 {%- for link in site.data.navigation %}{% if link.group == page.group %}{% assign nav_index = forloop.index %}{% endif %}{% endfor %}
 {%- if page.landscape_x != nil %}{% assign landscape_x = page.landscape_x %}{% else %}{% assign landscape_x = nav_index | times: site.landscape.stride %}{% endif %}
 <body class="layout-{{ page.layout | escape }}">
+  {% include seal-sprite.html %}
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div id="landscape" aria-hidden="true"></div>
