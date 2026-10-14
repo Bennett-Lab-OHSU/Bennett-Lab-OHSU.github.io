@@ -2,7 +2,7 @@
 name: Kaylee Ha
 category: Team
 status: current
-startdate: 2024-09-02
+startdate: 2026-09-02
 position: Ph.D. student
 email: "haka [at] ohsu.edu"
 ---
