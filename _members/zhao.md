@@ -3,7 +3,7 @@ name: Ryan Zhao
 category: Team
 status: current
 startdate: 2026-06-01
-position: Volunteer, Medical Student
+position: Volunteer, Medical student
 email: "zhaory [at] ohsu.edu"
 ---
 Bio goes here
